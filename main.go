@@ -2,18 +2,21 @@ package main
 
 import (
 	"fmt"
-	"log"
+
+	"github.com/juju/loggo"
 )
 
 func main() {
-	logf("start program", "INFO")
+	l := loggo.GetLogger("test")
 
-	logf("enter input data", "WARN")
+	l.SetLogLevel(loggo.TRACE)
+
+	l.Infof("Start of program")
 	var a, b, c int
 	fmt.Println("Enter three numbers: ")
 	fmt.Scan(&a, &b, &c)
 
-	logf("calculating max value", "DEBUG")
+	l.Debugf("calculating max value")
 	m := a
 	if b > a {
 		m = b
@@ -22,11 +25,7 @@ func main() {
 		m = c
 	}
 
-	logf("print output", "INFO")
+	l.Warningf("print output")
 	fmt.Println("max:", m)
-	logf("end program", "ERROR")
-}
-
-func logf(msg, level string) {
-	log.Print(level, " ", msg)
+	l.Errorf("end program")
 }
